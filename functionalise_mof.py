@@ -34,7 +34,7 @@ def find_pattern_in_structure(structure, pattern):
 
         last_match_indices = match_indices
         match_indices = []
-        print(last_match_indices  )
+        # print(last_match_indices  )
         for match in last_match_indices:
             print("----------------------------------")
             print(match)
@@ -47,14 +47,13 @@ def find_pattern_in_structure(structure, pattern):
                         match_atom = structure[match[j][0]]
                         match_offset = match[j][1]
                         # print("NORM ARGS: ", structure[match[j]].position + uc_offset, structure_atom.position)
-                        sdist = norm(match_atom.position + match_offset - structure_atom.position + uc_offset)
-
+                        sdist = norm(match_atom.position + match_offset - structure_atom.position - uc_offset)
 
                         if not math.isclose(pdist, sdist, rel_tol=5e-2):
-                            print("[%d] %6.4f != %6.4f" % (pattern_atom_0.index, pdist, sdist))
+                            # print("[%d] %6.4f != %6.4f" % (pattern_atom_0.index, pdist, sdist))
                             found_match = False
                             break
-                        print("[%d] %6.4f ~= %6.4f" % (pattern_atom_0.index, pdist, sdist))
+                        # print("[%d] %6.4f ~= %6.4f" % (pattern_atom_0.index, pdist, sdist))
                         # print("[%d] %6.4f ~= %6.4f" % (pattern_atom_0.index, pdist, sdist))
                     # anything that matches the distance to all prior pattern atoms is a good match so far
                     if found_match:
