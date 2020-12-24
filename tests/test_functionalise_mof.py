@@ -80,3 +80,17 @@ def test_find_pattern_in_structure__hkust1_unit_cell_has_32_benzene_rings():
     assert len(match_atoms) == 32
     for pattern_found in match_atoms:
         assert pattern_found.get_chemical_symbols() == ['C','C','C','C','C','C','H','H','H']
+        assert ((pattern_found[0].position - pattern_found[1].position) ** 2).sum() == approx(5.8620934418, 5e-2)
+        assert ((pattern_found[0].position - pattern_found[3].position) ** 2).sum() == approx(1.9523164046, 5e-2)
+        assert ((pattern_found[0].position - pattern_found[4].position) ** 2).sum() == approx(7.8072193204, 5e-2)
+        assert ((pattern_found[5].position - pattern_found[8].position) ** 2).sum() == approx(0.8683351588, 5e-2)
+
+def test_find_pattern_in_structure__hkust1_unit_cell_has_48_Cu_metal_nodes():
+    with importlib.resources.path(tests, "HKUST-1_withbonds.cif") as hkust1_path:
+        structure = ase.io.read(hkust1_path)
+    pattern = Atoms('Cu', positions=[(0, 0, 0)])
+    match_indices, match_atoms = find_pattern_in_structure(structure, pattern)
+
+    assert len(match_atoms) == 48
+    for pattern_found in match_atoms:
+        assert pattern_found.get_chemical_symbols() == ['Cu']
