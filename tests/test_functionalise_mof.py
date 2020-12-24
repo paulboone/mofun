@@ -69,3 +69,14 @@ def test_find_pattern_in_structure__octane_over_pbc_has_2_CH3():
     assert len(match_atoms) == 2
     for pattern_found in match_atoms:
         assert pattern_found.get_chemical_symbols() == ["C", "H", "H", "H"]
+
+def test_find_pattern_in_structure__hkust1_unit_cell_has_32_benzene_rings():
+    with importlib.resources.path(tests, "HKUST-1_withbonds.cif") as hkust1_path:
+        structure = ase.io.read(hkust1_path)
+    with importlib.resources.path(tests, "HKUST-1_benzene.xyz") as linker_path:
+        pattern = ase.io.read(linker_path)
+    match_indices, match_atoms = find_pattern_in_structure(structure, pattern)
+
+    assert len(match_atoms) == 32
+    for pattern_found in match_atoms:
+        assert pattern_found.get_chemical_symbols() == ['C','C','C','C','C','C','H','H','H']
