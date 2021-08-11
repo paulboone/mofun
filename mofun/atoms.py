@@ -426,7 +426,7 @@ cell=[]: unit cell matrix (same definition as in ASE)
         """ takes a list of new_types that are strings, converts to integer types, and populates
         atom_type_labels"""
 
-        ptable_order = lambda x: list(ATOMIC_MASSES.keys()).index(x.split("_")[0])
+        ptable_order = lambda x: list(ATOMIC_MASSES.keys()).index(x[0:2].strip("_"))
         unique_types = list(set(new_types))
 
         # sort by string ordering, so types like 'C_1', 'C_2', 'C_3', 'C_R' will show up in order
@@ -435,7 +435,7 @@ cell=[]: unit cell matrix (same definition as in ASE)
         unique_types.sort(key=ptable_order)
 
         self.atom_type_labels = unique_types
-        self.atom_type_elements = [s.split("_")[0] for s in unique_types]
+        self.atom_type_elements = [s[0:2].strip("_") for s in unique_types]
         self.atom_type_masses = [ATOMIC_MASSES[s] for s in self.atom_type_elements]
 
         self.atom_types = [unique_types.index(s) for s in new_types]
