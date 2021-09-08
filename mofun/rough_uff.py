@@ -213,7 +213,7 @@ def angle_params(a1, a2, a3, bond_orders=[None, None], bond_order_rules=[]):
             n = 4
             b = 1
 
-        return ('cosine/periodic', kijk, b, n)
+        return ('cosine/periodic', kijk/2, b, n)
     else:
         # General nonlinear cases use a three-term fourier expansion of the form:
         # E = Kijk * [C0 + C1 cos(theta) + c2 cos(2*theta)]
